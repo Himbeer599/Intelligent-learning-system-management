@@ -4,10 +4,7 @@ import com.learn.pojo.Dept;
 import com.learn.pojo.Result;
 import com.learn.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,19 @@ public class DeptController {
         System.out.println("Fetch all department data");
         List<Dept> deptList = deptService.findAll();
         return Result.success(deptList);
+    }
+
+    @DeleteMapping("/depts")
+    public Result delete(Integer id){
+        System.out.println("Delete department according to id:"+ id);
+        deptService.deleteById(id);
+        return Result.success();
+    }
+
+    @PostMapping("/depts")
+    public Result save(@RequestBody Dept dept){
+        System.out.println("new department, dept=" + dept);
+        deptService.save(dept);
+        return Result.success();
     }
 }
