@@ -28,11 +28,25 @@ public class DeptController {
         deptService.deleteById(id);
         return Result.success();
     }
-
+    //add a new department
     @PostMapping("/depts")
     public Result save(@RequestBody Dept dept){
         System.out.println("new department, dept=" + dept);
         deptService.save(dept);
+        return Result.success();
+    }
+    //revise a department (step1 query by Id from frontend, step2, revise(similar to add a new department)
+    @GetMapping("/depts/{id}")
+    public Result getById(@PathVariable Integer id){
+        System.out.println("Fetch department by id:"+ id);
+        Dept dept = deptService.getById(id);
+        return Result.success(dept);
+    }
+
+    @PutMapping("/depts")
+    public Result update(@RequestBody Dept dept){
+        System.out.println("update department, dept=" + dept);
+        deptService.update(dept);
         return Result.success();
     }
 }

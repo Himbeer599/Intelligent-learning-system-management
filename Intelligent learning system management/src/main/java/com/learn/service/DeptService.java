@@ -14,4 +14,8 @@ public interface DeptService {
     void deleteById(Integer id);
 
     void save(Dept dept);
+
+    Dept getById(Integer id);
+
+    void update(Dept dept);
 }
