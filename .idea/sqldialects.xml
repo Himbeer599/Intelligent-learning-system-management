@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/a0f94f53-716a-4de6-8aa6-75e1b13e1f7f/console_3.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/Intelligent learning system management/src/main/java/com/learn/mapper/DeptMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/Intelligent learning system management/src/main/java/com/learn/mapper/EmpMapper.java" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>
