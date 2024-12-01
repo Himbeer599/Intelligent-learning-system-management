@@ -14,3 +14,6 @@ mybatis:
     #开启驼峰命名映射开关
     map-underscore-to-camel-case: true
 
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql

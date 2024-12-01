@@ -1,6 +1,7 @@
 package com.learn.controller;
 
 import com.learn.pojo.Emp;
+import com.learn.pojo.EmpQueryParam;
 import com.learn.pojo.PageResult;
 import com.learn.pojo.Result;
 import com.learn.service.EmpService;
@@ -25,19 +26,13 @@ public class EmpController {
 
     /**
      * pagination
-     * @param page
-     * @param pageSize
      * @return
      */
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
-                       String name, Integer gender,
-                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
-        log.info("info of searching employees are listed as below:{},{},{},{},{},{}", page, pageSize, name, gender, begin, end);
+    public Result page(EmpQueryParam empQueryParam) {
+        log.info("info of searching employees are listed as below:{}", empQueryParam);
 
-        PageResult<Emp> pageResult = empService.page(page,pageSize,name,gender,begin,end);
+        PageResult<Emp> pageResult = empService.page(empQueryParam);
         return Result.success(pageResult);
     }
 

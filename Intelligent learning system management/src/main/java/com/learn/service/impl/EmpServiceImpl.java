@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.learn.mapper.EmpExprMapper;
 import com.learn.mapper.EmpMapper;
 import com.learn.pojo.Emp;
+import com.learn.pojo.EmpQueryParam;
 import com.learn.pojo.PageResult;
 import com.learn.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,9 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult(total,empList);*/
 
     @Override
-    public PageResult page(Integer page, Integer pageSize, String name, Integer gender,
-                           LocalDate begin, LocalDate end) {
-        PageHelper.startPage(page,pageSize);
-        List<Emp> empList = empMapper.list(name, gender,begin, end);
+    public PageResult page(EmpQueryParam empQueryParam) {
+        PageHelper.startPage(empQueryParam.getPage(),empQueryParam.getPageSize());
+        List<Emp> empList = empMapper.list(empQueryParam);
         Page<Emp> p = (Page<Emp>) empList;
         return new PageResult(p.getTotal(),p.getResult());
     }

@@ -2,6 +2,7 @@ package com.learn.mapper;
 
 
 import com.learn.pojo.Emp;
+import com.learn.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -22,6 +23,6 @@ public interface EmpMapper {
 
 //  @Select("select e.*, d.name deptName from emp e left join department d on e.dept_id = d.id order by e.update_time desc")
 
-    public List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+    public List<Emp> list(EmpQueryParam empQueryParam);
 
 }
