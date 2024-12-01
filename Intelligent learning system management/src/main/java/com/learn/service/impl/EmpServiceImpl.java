@@ -47,7 +47,7 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult(p.getTotal(),p.getResult());
     }
 
-    @Transactional //代表事务管理（以下员工表和保存工作经验表要么全成功，全么全失败）
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public void save(Emp emp) {
         //save general info of employees
