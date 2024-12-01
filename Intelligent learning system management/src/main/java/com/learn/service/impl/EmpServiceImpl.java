@@ -4,10 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.learn.mapper.EmpExprMapper;
 import com.learn.mapper.EmpMapper;
-import com.learn.pojo.Emp;
-import com.learn.pojo.EmpExpr;
-import com.learn.pojo.EmpQueryParam;
-import com.learn.pojo.PageResult;
+import com.learn.pojo.*;
+import com.learn.service.EmpLogService;
 import com.learn.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +24,9 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
     @Autowired
     private EmpExprMapper empExprMapper;
+
+    @Autowired
+    private EmpLogService empLogService;
 
     /**
     @Override
@@ -51,17 +52,24 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public void save(Emp emp) {
         //save general info of employees
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-        empMapper.insert(emp);
+        try {
+            emp.setCreateTime(LocalDateTime.now());
+            emp.setUpdateTime(LocalDateTime.now());
+            empMapper.insert(emp);
 
-        //save working experiences (several working experiences) of employees
-        Integer empId = emp.getId();
-        List<EmpExpr> exprList = emp.getExprList();
-        if(!CollectionUtils.isEmpty(exprList)){
-            exprList.forEach(empExpr -> empExpr.setEmpId(empId));
-            empExprMapper.insertBatch(exprList);
+            //save working experiences (several working experiences) of employees
+            Integer empId = emp.getId();
+            List<EmpExpr> exprList = emp.getExprList();
+            if(!CollectionUtils.isEmpty(exprList)){
+                exprList.forEach(empExpr -> empExpr.setEmpId(empId));
+                empExprMapper.insertBatch(exprList);
+            }
+        } finally {
+            EmpLog empLog = new EmpLog(null, LocalDateTime.now(),"info of new added employee is shown below:"+emp);
+            empLogService.insertLog(empLog);
         }
+
+
     }
 
 }
