@@ -10,6 +10,7 @@ import com.learn.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -32,9 +33,10 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult(total,empList);*/
 
     @Override
-    public PageResult page(Integer page, Integer pageSize) {
+    public PageResult page(Integer page, Integer pageSize, String name, Integer gender,
+                           LocalDate begin, LocalDate end) {
         PageHelper.startPage(page,pageSize);
-        List<Emp> empList = empMapper.list();
+        List<Emp> empList = empMapper.list(name, gender,begin, end);
         Page<Emp> p = (Page<Emp>) empList;
         return new PageResult(p.getTotal(),p.getResult());
     }
