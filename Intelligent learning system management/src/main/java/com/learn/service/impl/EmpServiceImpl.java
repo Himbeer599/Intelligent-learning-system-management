@@ -11,6 +11,7 @@ import com.learn.pojo.PageResult;
 import com.learn.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
@@ -46,6 +47,7 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult(p.getTotal(),p.getResult());
     }
 
+    @Transactional //代表事务管理（以下员工表和保存工作经验表要么全成功，全么全失败）
     @Override
     public void save(Emp emp) {
         //save general info of employees
@@ -54,8 +56,10 @@ public class EmpServiceImpl implements EmpService {
         empMapper.insert(emp);
 
         //save working experiences (several working experiences) of employees
+        Integer empId = emp.getId();
         List<EmpExpr> exprList = emp.getExprList();
         if(!CollectionUtils.isEmpty(exprList)){
+            exprList.forEach(empExpr -> empExpr.setEmpId(empId));
             empExprMapper.insertBatch(exprList);
         }
     }

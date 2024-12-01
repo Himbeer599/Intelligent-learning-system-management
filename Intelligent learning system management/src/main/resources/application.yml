@@ -17,3 +17,8 @@ mybatis:
 pagehelper:
   reasonable: true
   helper-dialect: mysql
+
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
+
