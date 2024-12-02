@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EmpMapper {
@@ -37,4 +38,7 @@ public interface EmpMapper {
     void update(Emp emp);
 
     void updateById(Emp emp);
+
+    @MapKey("pos")
+    List<Map<String, Object>> countEmpJobData();
 }

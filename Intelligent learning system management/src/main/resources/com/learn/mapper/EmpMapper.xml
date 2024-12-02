@@ -79,4 +79,17 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="countEmpJobData" resultType="java.util.Map">
+        select
+            (case job when 1 then 'Student Affairs'
+                      when 2 then 'Academics'
+                      when 3 then 'Consultation'
+                      when 4 then 'Employment Affairs'
+                      when 5 then 'Human Resources'
+                      else 'Other' end)  pos,
+            count(*) total
+        from emp group by job
+        order by total
+    </select>
 </mapper>
