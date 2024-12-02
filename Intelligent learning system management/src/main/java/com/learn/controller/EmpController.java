@@ -1,9 +1,6 @@
 package com.learn.controller;
 
-import com.learn.pojo.Emp;
-import com.learn.pojo.EmpQueryParam;
-import com.learn.pojo.PageResult;
-import com.learn.pojo.Result;
+import com.learn.pojo.*;
 import com.learn.service.EmpService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,4 +46,17 @@ public class EmpController {
         return Result.success();
     }
 
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id){
+        log.info("Fetch employee by id:"+ id);
+        Emp emp = empService.getInfo(id);
+        return Result.success(emp);
+    }
+
+//    @PutMapping
+//    public Result update(@RequestBody Emp emp){
+//        log.info("update employee, emp=" + emp);
+//        empService.update(emp);
+//        return Result.success();
+//    }
 }
