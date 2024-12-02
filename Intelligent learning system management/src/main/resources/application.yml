@@ -22,3 +22,9 @@ logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
 
+aws:
+  s3:
+    endpoint: https://s3.eu-central-1.amazonaws.com
+    bucketName: learncontroller
+    region: eu-central-1
+

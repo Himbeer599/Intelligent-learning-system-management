@@ -4,8 +4,8 @@ package com.learn.utils;
 //import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 //import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 //import com.aliyun.oss.common.comm.SignVersion;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,19 +14,22 @@ import java.util.UUID;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
-import software.amazon.awssdk.core.client.config.SdkAdvancedClientOption;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 @Component
 public class AwsOperator {
 
-    private String endpoint = "https://s3.eu-central-1.amazonaws.com";
-    private String bucketName = "learncontroller";
-    private String region = "eu-central-1";
+//    @Value("${aws.s3.endpoint}")
+//    private String endpoint;
+//    @Value("${aws.s3.bucketName}")
+//    private String bucketName;
+//    @Value("${aws.s3.region}")
+//    private String region;
+    @Autowired
+    private AwsProperties awsProperties;
 
     public static S3Client createS3Client(String endpoint, String regionStr, AwsCredentialsProvider credentialsProvider) {
         // Create a custom client configuration
@@ -44,6 +47,10 @@ public class AwsOperator {
     }
 
     public String upload(byte[] content, String originalFilename) throws Exception {
+        String endpoint = awsProperties.getEndpoint();
+        String bucketName = awsProperties.getBucketName();
+        String region = awsProperties.getRegion();
+
         EnvironmentVariableCredentialsProvider credentialsProvider = EnvironmentVariableCredentialsProvider.create();
 
         String dir = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM"));
