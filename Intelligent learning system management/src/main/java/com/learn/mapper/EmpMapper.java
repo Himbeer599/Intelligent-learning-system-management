@@ -32,4 +32,9 @@ public interface EmpMapper {
     void deleteByIds(List<Integer> ids);
 
     Emp getById(Integer id);
+
+    @Update("update emp and emp_expr set name = #{name}, update_time = #{updateTime} where id = #{id}")
+    void update(Emp emp);
+
+    void updateById(Emp emp);
 }

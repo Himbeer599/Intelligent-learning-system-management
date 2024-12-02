@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,6 +27,7 @@ public class EmpServiceImpl implements EmpService {
     private EmpExprMapper empExprMapper;
     @Autowired
     private EmpLogService empLogService;
+    private List<Integer> list;
 
     /**
     @Override
@@ -81,4 +83,20 @@ public class EmpServiceImpl implements EmpService {
        return empMapper.getById(id);
     }
 
+    @Transactional (rollbackFor = {Exception.class})
+    @Override
+    public void update(Emp emp) {
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+
+        list = Arrays.asList(emp.getId());//将id封装为一个list，使用ARRAYS.ASlIST
+        empExprMapper.deleteByEmpIds(list);
+
+        Integer empId = emp.getId();
+        List<EmpExpr> exprList = emp.getExprList();
+        if(!CollectionUtils.isEmpty(exprList)){
+            exprList.forEach(empExpr -> empExpr.setEmpId(empId));
+            empExprMapper.insertBatch(exprList);
+        }
+    }
 }

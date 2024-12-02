@@ -53,10 +53,10 @@ public class EmpController {
         return Result.success(emp);
     }
 
-//    @PutMapping
-//    public Result update(@RequestBody Emp emp){
-//        log.info("update employee, emp=" + emp);
-//        empService.update(emp);
-//        return Result.success();
-//    }
+    @PutMapping
+    public Result update(@RequestBody Emp emp){
+        log.info("update employee,{}"+ emp);
+        empService.update(emp);
+        return Result.success();
+    }
 }
