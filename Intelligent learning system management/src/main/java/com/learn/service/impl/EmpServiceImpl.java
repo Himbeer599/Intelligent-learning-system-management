@@ -24,7 +24,6 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
     @Autowired
     private EmpExprMapper empExprMapper;
-
     @Autowired
     private EmpLogService empLogService;
 
@@ -68,8 +67,13 @@ public class EmpServiceImpl implements EmpService {
             EmpLog empLog = new EmpLog(null, LocalDateTime.now(),"info of new added employee is shown below:"+emp);
             empLogService.insertLog(empLog);
         }
+    }
 
-
+    @Transactional
+    @Override
+    public void deleteByIds(List<Integer> ids) {
+        empMapper.deleteByIds(ids);
+        empExprMapper.deleteByEmpIds(ids);
     }
 
 }

@@ -30,7 +30,6 @@ public class DeptServiceImpl implements DeptService {
         //fill other properties(such as localtime and updatetime)
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
-
         deptMapper.insert(dept);
     }
 

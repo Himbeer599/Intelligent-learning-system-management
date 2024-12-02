@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RequestMapping("/emps")
 @RestController
@@ -40,5 +41,12 @@ public class EmpController {
         return Result.success();
     }
 
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids){
+//        System.out.println("Delete department according to id:"+ id);
+        log.info("Delete employee according to id:{}"+ ids);
+        empService.deleteByIds(ids);
+        return Result.success();
+    }
 
 }

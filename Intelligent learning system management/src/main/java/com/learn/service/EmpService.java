@@ -6,9 +6,12 @@ import com.learn.pojo.PageResult;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface EmpService {
     PageResult page(EmpQueryParam empQueryParam);
 
     void save(Emp emp);
+
+    void deleteByIds(List<Integer> ids);
 }

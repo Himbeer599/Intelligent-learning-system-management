@@ -14,4 +14,6 @@ import java.util.List;
 public interface EmpExprMapper {
     //dynamic SQL query (batch results)
     void insertBatch(List<EmpExpr> exprList);
+    void deleteByEmpIds(List<Integer> empIds);
+
 }
