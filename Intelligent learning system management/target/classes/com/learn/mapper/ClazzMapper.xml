@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.mapper.ClazzMapper">
+    <select id="list" resultType="com.learn.pojo.Clazz">
+        select c.*, e.name masterName
+        from clazz as c
+        left join emp as e
+        on c.master_id = e.id
+        <where>
+            <if test="name != null and name !=''">
+                e.name like concat('%',#{name},'%')
+            </if>
+            <if test="begin != null and end != null">
+                and e.entry_date between #{begin} and #{end}
+            </if>
+        </where>
+    </select>
+</mapper>
