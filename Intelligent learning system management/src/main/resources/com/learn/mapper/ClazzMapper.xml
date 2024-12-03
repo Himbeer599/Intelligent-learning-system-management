@@ -5,6 +5,12 @@
     <update id="updateMasterIds">
         update clazz
         set master_id = case id
+        <foreach collection="empIds" item="empId" open=" " separator=" " close=" ">
+            WHEN #{empId} THEN #{empId}
+        </foreach>
+        ELSE master_id
+        END
+        WHERE id IN
         <foreach collection="empIds" item="empId" open="(" close=")" separator=",">
             #{empId}
         </foreach>
