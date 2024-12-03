@@ -16,17 +16,6 @@
         </foreach>
     </update>
 
-<!--    <update id="updateMasterName">-->
-<!--        UPDATE clazz c-->
-<!--        JOIN emp e ON c.master_id = e.id-->
-<!--        SET c.master_name = e.name-->
-<!--        WHERE c.master_id IN-->
-<!--        <foreach collection="empIds" item="empId" open="(" close=")" separator=",">-->
-<!--            #{empId}-->
-<!--        </foreach>-->
-<!--    </update>-->
-
-
     <select id="list" resultType="com.learn.pojo.Clazz">
         select c.*, e.name masterName
         from clazz as c
@@ -34,11 +23,12 @@
         on c.master_id = e.id
         <where>
             <if test="name != null and name !=''">
-                e.name like concat('%',#{name},'%')
+                c.name like concat('%',#{name},'%')
             </if>
             <if test="begin != null and end != null">
-                and e.entry_date between #{begin} and #{end}
+                and c.entry_date between #{begin} and #{end}
             </if>
         </where>
     </select>
+
 </mapper>
