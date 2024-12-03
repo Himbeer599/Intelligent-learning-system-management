@@ -59,4 +59,12 @@ public class EmpController {
         empService.update(emp);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    public Result getAllEmp(){
+        log.info("Fetch all employees");
+        List<Emp> empList = empService.getAll();
+        return Result.success(empList);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.learn.mapper;
 
 
+import com.learn.pojo.Dept;
 import com.learn.pojo.Emp;
 import com.learn.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
@@ -30,6 +31,7 @@ public interface EmpMapper {
             "values (#{username},#{name},#{gender},#{phone},#{job},#{salary},#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})")
     void insert(Emp emp);
 
+
     void deleteByIds(List<Integer> ids);
 
     Emp getById(Integer id);
@@ -43,4 +45,7 @@ public interface EmpMapper {
     List<Map<String, Object>> countEmpJobData();
     @MapKey("name")
     List<Map> countEmpGenderData();
+
+    @Select("select e.id,e.name,e.username from emp e")
+    List<Emp> getAll();
 }

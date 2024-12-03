@@ -6,4 +6,6 @@ import com.learn.pojo.PageResult;
 
 public interface ClazzService {
     PageResult<Clazz> page(ClazzQueryParam clazzQueryParam);
+
+    void creatClazz(Clazz clazz);
 }
