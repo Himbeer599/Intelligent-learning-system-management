@@ -92,9 +92,15 @@ public class ClazzServiceImpl implements ClazzService {
                     .toList();
             log.info("empIds: {}", empIds);
 
+            List<Integer> empNames = empList.stream()
+                    .map(Emp::getId)
+                    .toList();
+            log.info("empNames: {}", empNames);
+
             clazz.setCreateTime(LocalDateTime.now());
             clazz.setUpdateTime(LocalDateTime.now());
             clazzMapper.updateMasterIds(empIds);
+            clazzMapper.updateMasterName(empNames);
             clazzMapper.insert(clazz);
             log.info("clazz: {}", clazz);
         } finally {
