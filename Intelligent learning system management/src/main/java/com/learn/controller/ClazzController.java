@@ -26,8 +26,9 @@ public class ClazzController {
 
     @PostMapping
     public Result save(@RequestBody Clazz clazz) {
+        log.info("info of classes after search:{}", clazz);
         clazzService.creatClazz(clazz);
-//        log.info("info of classes after search:{}", clazz);
+
         return Result.success();
     }
 
