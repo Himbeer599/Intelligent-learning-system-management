@@ -18,18 +18,20 @@ public class ClazzController {
 
     @GetMapping
     public Result page(ClazzQueryParam clazzQueryParam) {
-        log.info("info of searching classes are listed as below:{}", clazzQueryParam);
+        //PageResult<T>， T detemines the rows of PageResult. PageResult:{total:.., rows:[{Clazz},{Clazz}..]
         PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
-        log.info("info of lists after search:{}", pageResult.getRows());
         return Result.success(pageResult);
     }
 
     @PostMapping
-    public Result save(@RequestBody Clazz clazz) {
-        log.info("info of classes after search:{}", clazz);
+    public Result create(@RequestBody Clazz clazz) {
         clazzService.creatClazz(clazz);
-
         return Result.success();
     }
+    /*PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
+        System.out.println(pageResult.getTotal()); // 获取总记录数
+        for (Clazz clazz : pageResult.getRows()) { // 遍历当前页的班级数据
+                System.out.println(clazz.getName());   // 输出班级名称
+    }*/
 
 }

@@ -25,21 +25,26 @@ public class ClazzServiceImpl implements ClazzService {
     private ClazzMapper clazzMapper;
     @Autowired
     private EmpLogService empLogService;
-    @Autowired
-    private EmpMapper empMapper;
+  /*  @Autowired
+    private EmpMapper empMapper;*/
 
+    /**
+     * fetch all clazz:
+     * PageResult<Clazz>:{total count:..,rows:[{Clazz1},{Clazz2},{Clazz3}..]}
+     *      --firstly, get clazz info by list method(select c., mastername from emp) defined in ClazzMapper
+     *      --secondly, setStatus. get Clazz from clazzlist, then setStatus in clazz
+     *      --thirdly, convert clazzList to Page<Clazz>
+     *       --return PageResult
+     * @param clazzQueryParam
+     * @return
+     */
     @Override
     public PageResult page(ClazzQueryParam clazzQueryParam) {
         PageHelper.startPage(clazzQueryParam.getPage(),clazzQueryParam.getPageSize());
         List<Clazz> clazzList = clazzMapper.list(clazzQueryParam);
-//        log.info("info of clazzList{}", clazzList);
 
         LocalDate currentDate = LocalDate.now();
-//        System.out.println("Current Date: " + currentDate);
-
-        /**
-         * ！！how to change the status based on the evalution of date!Pay attention to for cycle
-        * */
+        //setStatus needs to be employed on clazz (which needs to get from clazzList)
         for (Clazz clazz : clazzList) {
             if (clazz.getEndDate().isBefore(currentDate)) {
                 clazz.setStatus("finished");
@@ -48,30 +53,19 @@ public class ClazzServiceImpl implements ClazzService {
             } else {
                 clazz.setStatus("teaching");
             }
-//            System.out.println("Class ID: " + clazz.getId() + ", Status: " + clazz.getStatus());
         }
-        /**
-         * although here not used, but it's quite important to know how to get Status in a List (use Stream!)
-         */
-        List<String> statuses = clazzList.stream()
-                .map(Clazz::getStatus)
-                .toList();
-//        System.out.println("Statuses: " + statuses);
-
         Page<Clazz> c = (Page<Clazz>) clazzList;
-//        log.info("info of c{}", c);
         return new PageResult(c.getTotal(),c.getResult());
     }
 
-
-
     /**
      * when I want to create a new class, that means two things:
-     * (1)display all emps in the empID optiop
+     * (1)display all emps in the empID option (this step automatically getemp data because of Getmapping in EmpController)
+     * remember: the following second steps are not necessary. Here it doesn't need to setId, thereby not necessary to disptach getAll method.
      *      --firstly, define method (getAll) in Emp files(Getmapping in EmpController-->getAll method in EmpServiceImpl-->define sql in EmpMapper)
-     *          remember to return empList
-     *      -- secondly, dispatch this method in ClazzServiceImpl to get all empList
-     * (2)set empId of empList (use Stream.map.List) as clazz ID
+     *          remember to return empList(only contains e.name namely masterName, and id namely empId)
+     *      -- secondly, dispatch this method in ClazzServiceImpl to get all empList (falsch)
+     * (2)set empId of empList (use Stream.map.List) as clazz ID--falsh
      *      -- define updatedMasterIds method in Mapper (use foreach cycle to set empId as masterId which were reveived from empList)
      *      --dispatch updateMasterIds in Service and then insert
      *  --for this function, there are two methods defined in ClazzMapper, one is insert for update, the other is updateID.
@@ -80,29 +74,18 @@ public class ClazzServiceImpl implements ClazzService {
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void creatClazz(Clazz clazz) {
-
-        //save general info of classes
         try {
-//            here needs to dispatch the method of getAll to show all the masterId(empId)
-            List<Emp> empList = empMapper.getAll();
+          /*  List<Emp> empList = empMapper.getAll();
             log.info("empList: {}", empList);
-
             List<Integer> empIds = empList.stream()
                     .map(Emp::getId)
                     .toList();
-            log.info("empIds: {}", empIds);
-
-//            List<Integer> empNames = empList.stream()
-//                    .map(Emp::getId)
-//                    .toList();
-//            log.info("empNames: {}", empNames);
-
+            log.info("empIds: {}", empIds);*/
+        //save general info of classes
             clazz.setCreateTime(LocalDateTime.now());
             clazz.setUpdateTime(LocalDateTime.now());
-            clazzMapper.updateMasterIds(empIds);
-//            clazzMapper.updateMasterName(empNames);
+//            clazzMapper.updateMasterIds(empIds);
             clazzMapper.insert(clazz);
-            log.info("clazz: {}", clazz);
         } finally {
             EmpLog clazzLog = new EmpLog(null, LocalDateTime.now(),"info of new added classes is shown below:"+clazz);
             empLogService.insertLog(clazzLog);
