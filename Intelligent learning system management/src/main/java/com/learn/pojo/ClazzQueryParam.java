@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class ClazzQueryParam {
     private Integer page = 1;
-    private Integer pageSize = 5;
+    private Integer pageSize = 10;
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate begin;

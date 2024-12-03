@@ -24,6 +24,7 @@ public class ClazzController {
         log.info("info of searching classes are listed as below:{}", clazzQueryParam);
 
         PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
+        log.info("info of lists after search:{}", pageResult.getRows());
         return Result.success(pageResult);
     }
 
