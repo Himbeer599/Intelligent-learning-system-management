@@ -91,4 +91,9 @@ public class ClazzServiceImpl implements ClazzService {
             empLogService.insertLog(clazzLog);
         }
     }
+
+    @Override
+    public Clazz getInfo(Integer id) {
+        return clazzMapper.getById(id);
+    }
 }

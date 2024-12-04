@@ -34,4 +34,17 @@ public class ClazzController {
                 System.out.println(clazz.getName());   // 输出班级名称
     }*/
 
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id){
+        log.info("Fetch clazz by id:"+ id);
+        Clazz clazz = clazzService.getInfo(id);
+        return Result.success(clazz);
+    }
+
+//    @PutMapping
+//    public Result update(@RequestBody Emp emp){
+//        log.info("update employee,{}"+ emp);
+//        empService.update(emp);
+//        return Result.success();
+//    }
 }

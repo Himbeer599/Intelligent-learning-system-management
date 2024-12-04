@@ -8,4 +8,6 @@ public interface ClazzService {
     PageResult<Clazz> page(ClazzQueryParam clazzQueryParam);
 
     void creatClazz(Clazz clazz);
+
+    Clazz getInfo(Integer id);
 }

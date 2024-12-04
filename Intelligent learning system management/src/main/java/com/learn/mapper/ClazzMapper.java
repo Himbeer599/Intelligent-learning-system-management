@@ -22,5 +22,7 @@ public interface ClazzMapper {
 
     void updateMasterIds(@Param("empIds") List<Integer> empIds);
 
+    Clazz getById(Integer id);
+
 //    void updateMasterName(@Param("empNames")List<Integer> empNames);
 }
