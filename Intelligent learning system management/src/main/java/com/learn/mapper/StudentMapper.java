@@ -29,4 +29,6 @@ public interface StudentMapper {
 
     @MapKey("clazzname")
     List<Map<String, Object>> countStuClazzData();
+    @MapKey("degree")
+    List<Map<String, Object>> countStuDegreeData();
 }

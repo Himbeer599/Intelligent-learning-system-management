@@ -45,4 +45,14 @@ public class ReportController {
         ClazzType clazzType = reportService.getStuClazzData();
         return Result.success(clazzType);
     }
+
+    @GetMapping("/studentDegreeData")
+    public Result getStuDegreeData(){
+        log.info("Info of students' degree are listed as below:{}");
+//        List<Map> degreeList = reportService.getStuDegreeData();
+//        return Result.success(degreeList);
+        ClazzType clazzType = reportService.getStuDegreeData();
+        log.info("@@@:{}",clazzType);
+        return Result.success(clazzType);
+    }
 }

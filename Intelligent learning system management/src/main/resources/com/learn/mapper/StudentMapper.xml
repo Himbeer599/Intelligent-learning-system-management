@@ -20,6 +20,7 @@
         </set>
         where id = #{id}
     </update>
+
     <delete id="deleteByIds">
         delete from student where id in
             <foreach collection="ids" item="id" open="(" close=")" separator="'">
@@ -62,7 +63,20 @@
             count(*) as total
             from student s
                 group by clazzname order by total
+    </select>
 
+    <select id="countStuDegreeData" resultType="java.util.Map">
+        select
+            (case s.degree
+                 when 3 then 'High school'
+                 when 4 then 'Undergraduate'
+                 when 5 then 'Master'
+                 when 6 then ' Doctor'
+                 else 'Unknown'
+                end) as degree,
+            count(*) as total
+        from student s
+        group by degree order by total
     </select>
 
 </mapper>

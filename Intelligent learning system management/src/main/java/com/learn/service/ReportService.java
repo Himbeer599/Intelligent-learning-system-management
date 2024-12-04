@@ -12,4 +12,6 @@ public interface ReportService {
     List<Map> getEmpGenderData();
 
     ClazzType getStuClazzData();
+
+    ClazzType getStuDegreeData();
 }
