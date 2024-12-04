@@ -114,4 +114,9 @@ public class ClazzServiceImpl implements ClazzService {
     public void deleteById(Integer id) {
         clazzMapper.deleteById(id);
     }
+
+    @Override
+    public List<Clazz> getAll() {
+        return clazzMapper.getAll();
+    }
 }

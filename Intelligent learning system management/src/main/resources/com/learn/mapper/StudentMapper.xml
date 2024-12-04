@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learn.mapper.StudentMapper">
+
+    <select id="list" resultType="com.learn.pojo.Student">
+        select s.*, c.name
+        from student s
+        left join clazz c
+        on s.clazz_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                s.name like concat('%',#{name},'%')
+            </if>
+            <if test="degree != null">
+                and s.degree = #{degree}
+            </if>
+            <if test="classId != null">
+                and s.class_id = #{classId}
+            </if>
+        </where>
+        order by s.update_time desc
+    </select>
+</mapper>

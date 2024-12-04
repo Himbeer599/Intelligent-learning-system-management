@@ -29,6 +29,7 @@
                 and c.entry_date between #{begin} and #{end}
             </if>
         </where>
+        order by update_time desc
     </select>
 
     <select id="getById" resultType="com.learn.pojo.Clazz">
