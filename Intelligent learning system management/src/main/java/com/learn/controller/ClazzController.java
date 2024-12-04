@@ -40,11 +40,11 @@ public class ClazzController {
         Clazz clazz = clazzService.getInfo(id);
         return Result.success(clazz);
     }
+    @PutMapping
+    public Result update(@RequestBody Clazz clazz){
+        log.info("update clazz:{}"+ clazz);
+        clazzService.update(clazz);
+        return Result.success();
+    }
 
-//    @PutMapping
-//    public Result update(@RequestBody Emp emp){
-//        log.info("update employee,{}"+ emp);
-//        empService.update(emp);
-//        return Result.success();
-//    }
 }

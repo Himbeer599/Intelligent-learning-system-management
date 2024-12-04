@@ -2,19 +2,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learn.mapper.ClazzMapper">
-    <update id="updateMasterIds">
-        update clazz
-        set master_id = case id
-        <foreach collection="empIds" item="empId" open=" " separator=" " close=" ">
-            WHEN #{empId} THEN #{empId}
-        </foreach>
-        ELSE master_id
-        END
-        WHERE id IN
-        <foreach collection="empIds" item="empId" open="(" close=")" separator=",">
-            #{empId}
-        </foreach>
-    </update>
+    <!--    <update id="updateMasterIds">-->
+<!--        update clazz-->
+<!--        set master_id = case id-->
+<!--        <foreach collection="empIds" item="empId" open=" " separator=" " close=" ">-->
+<!--            WHEN #{empId} THEN #{empId}-->
+<!--        </foreach>-->
+<!--        ELSE master_id-->
+<!--        END-->
+<!--        WHERE id IN-->
+<!--        <foreach collection="empIds" item="empId" open="(" close=")" separator=",">-->
+<!--            #{empId}-->
+<!--        </foreach>-->
+<!--    </update>-->
 
     <select id="list" resultType="com.learn.pojo.Clazz">
         select c.*, e.name masterName
@@ -30,9 +30,26 @@
             </if>
         </where>
     </select>
+
     <select id="getById" resultType="com.learn.pojo.Clazz">
         select c.* from clazz as c
         where c.id = #{id}
     </select>
+
+    <update id="updateById">
+        update clazz
+        <set>
+            <if test="name != null and name !=''"> name = #{name},</if>
+            <if test="room != null and room !=''"> room = #{room},</if>
+            <if test="beginDate != null"> begin_date = #{beginDate},</if>
+            <if test="endDate != null"> end_date = #{endDate},</if>
+            <if test="masterId != null"> master_id = #{masterId},</if>
+            <if test="subject != null"> subject = #{subject},</if>
+            <if test="updateTime != null"> update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+
 
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -92,8 +93,20 @@ public class ClazzServiceImpl implements ClazzService {
         }
     }
 
+    /**
+     * When editing /revising a clazz:
+     *      --step 1: getById(when click on "Edit", the relevant info can be displayed)
+     *      --step2: update
+     */
     @Override
     public Clazz getInfo(Integer id) {
         return clazzMapper.getById(id);
+    }
+
+    @Override
+    public void update(Clazz clazz) {
+        clazz.setUpdateTime(LocalDateTime.now());
+        clazzMapper.updateById(clazz);
+//        list = Arrays.asList(clazz.getId());
     }
 }

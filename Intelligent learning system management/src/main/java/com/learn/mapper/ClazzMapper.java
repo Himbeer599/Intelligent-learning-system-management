@@ -2,10 +2,7 @@ package com.learn.mapper;
 
 import com.learn.pojo.Clazz;
 import com.learn.pojo.ClazzQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -20,9 +17,11 @@ public interface ClazzMapper {
     void insert(Clazz clazz);
 
 
-    void updateMasterIds(@Param("empIds") List<Integer> empIds);
+//    void updateMasterIds(@Param("empIds") List<Integer> empIds);
 
     Clazz getById(Integer id);
 
-//    void updateMasterName(@Param("empNames")List<Integer> empNames);
+//    @Update("update clazz c set c.name= #{name}, c.room = #{room},c.begin_date = #{beginDate},c.end_date = #{endDate},c.master_id = #{masterId}, c.subject = #{subject}" +
+//            " where c.id=#{id}")
+    void updateById(Clazz clazz);
 }

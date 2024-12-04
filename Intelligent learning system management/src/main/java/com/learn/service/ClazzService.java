@@ -10,4 +10,6 @@ public interface ClazzService {
     void creatClazz(Clazz clazz);
 
     Clazz getInfo(Integer id);
+
+    void update(Clazz clazz);
 }
