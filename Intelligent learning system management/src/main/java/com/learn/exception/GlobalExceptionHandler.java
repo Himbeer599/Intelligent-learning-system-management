@@ -14,4 +14,11 @@ public class GlobalExceptionHandler {
             e.printStackTrace();
         return Result.error("Sorry, the operation failed. Please contact the administrator.");
         }
+
+    @ExceptionHandler(ClazzDeleteException.class)
+    public Result handleClazzDeleteException(ClazzDeleteException e) {
+        // 返回自定义的错误信息
+        return Result.error(e.getMessage());
+    }
+
 }

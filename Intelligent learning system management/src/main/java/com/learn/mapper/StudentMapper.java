@@ -2,10 +2,7 @@ package com.learn.mapper;
 
 import com.learn.pojo.Student;
 import com.learn.pojo.StudentQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -25,4 +22,7 @@ public interface StudentMapper {
     void updateById(Student student);
 
     void deleteByIds(List<Integer> ids);
+
+    @Select("SELECT COUNT(*) FROM student WHERE id = #{id}")
+    int countByClazzId(@Param("id") Integer id);
 }

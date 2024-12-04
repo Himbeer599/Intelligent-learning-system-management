@@ -2,8 +2,10 @@ package com.learn.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.learn.exception.ClazzDeleteException;
 import com.learn.mapper.ClazzMapper;
 import com.learn.mapper.EmpMapper;
+import com.learn.mapper.StudentMapper;
 import com.learn.pojo.*;
 import com.learn.service.ClazzService;
 import com.learn.service.EmpLogService;
@@ -26,6 +28,8 @@ public class ClazzServiceImpl implements ClazzService {
     private ClazzMapper clazzMapper;
     @Autowired
     private EmpLogService empLogService;
+    @Autowired
+    private StudentMapper studentMapper;
   /*  @Autowired
     private EmpMapper empMapper;*/
 
@@ -112,6 +116,10 @@ public class ClazzServiceImpl implements ClazzService {
 
     @Override
     public void deleteById(Integer id) {
+        int studentCount = studentMapper.countByClazzId(id);
+        if (studentCount > 0) {
+            throw new ClazzDeleteException();
+        }
         clazzMapper.deleteById(id);
     }
 
