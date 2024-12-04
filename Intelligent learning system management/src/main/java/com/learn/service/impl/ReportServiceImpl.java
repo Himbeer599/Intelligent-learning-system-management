@@ -43,12 +43,12 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ClazzType getStuDegreeData() {
+    public List<Map> getStuDegreeData() {
 //        return studentMapper.countStuDegreeData();
-        List<Map<String,Object>> list =studentMapper.countStuDegreeData();
-        List<Object> studentList = list.stream().map(dataMap -> dataMap.get("degree")).toList();
-        List<Object> dataList = list.stream().map(dataMap -> dataMap.get("total")).toList();
-        log.info("info:{},{}",studentList,dataList);
-        return new ClazzType(studentList,dataList);
+//        List<Map<String,Object>> list =studentMapper.countStuDegreeData();
+//        List<Object> studentList = list.stream().map(dataMap -> dataMap.get("degree")).toList();
+//        List<Object> dataList = list.stream().map(dataMap -> dataMap.get("total")).toList();
+//        log.info("info:{},{}",studentList,dataList);
+        return studentMapper.countStuDegreeData();
     }
 }

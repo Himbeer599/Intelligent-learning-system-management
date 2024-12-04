@@ -73,10 +73,10 @@
                  when 5 then 'Master'
                  when 6 then ' Doctor'
                  else 'Unknown'
-                end) as degree,
-            count(*) as total
-        from student s
-        group by degree order by total
+                end) as name,
+            count(*) as value
+        from student as s
+        group by s.degree
     </select>
 
 </mapper>

@@ -29,6 +29,7 @@ public class ReportController {
     public Result getEmpJobData(){
         log.info("The number of employees are listed as below:{}");
         JobOption jobOption = reportService.getEmpJobData();
+        log.info("%%%:{}",jobOption);
         return Result.success(jobOption);
     }
 
@@ -36,6 +37,7 @@ public class ReportController {
     public Result getEmpGenderData(){
         log.info("Info of gender are listed as below:{}");
         List<Map> genderList = reportService.getEmpGenderData();
+//        log.info("@@@:{}",genderList);
         return Result.success(genderList);
     }
 
@@ -48,11 +50,11 @@ public class ReportController {
 
     @GetMapping("/studentDegreeData")
     public Result getStuDegreeData(){
-        log.info("Info of students' degree are listed as below:{}");
-//        List<Map> degreeList = reportService.getStuDegreeData();
-//        return Result.success(degreeList);
-        ClazzType clazzType = reportService.getStuDegreeData();
-        log.info("@@@:{}",clazzType);
-        return Result.success(clazzType);
+//        log.info("Info of students' degree are listed as below:{}");
+        List<Map> degreeList = reportService.getStuDegreeData();
+//        log.info("@@@:{}",degreeList);
+        return Result.success(degreeList);
+//        ClazzType clazzType = reportService.getStuDegreeData();
+//        return Result.success(clazzType);
     }
 }

@@ -13,5 +13,5 @@ public interface ReportService {
 
     ClazzType getStuClazzData();
 
-    ClazzType getStuDegreeData();
+    List<Map> getStuDegreeData();
 }
