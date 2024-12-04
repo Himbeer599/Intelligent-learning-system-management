@@ -117,7 +117,8 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public void deleteById(Integer id) {
         int studentCount = studentMapper.countByClazzId(id);
-        if (studentCount > 0) {
+        System.out.println("studentCount:"+studentCount);
+        if (studentCount > 1) {
             throw new ClazzDeleteException();
         }
         clazzMapper.deleteById(id);

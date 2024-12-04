@@ -28,7 +28,7 @@ public class DeptServiceImpl implements DeptService {
     public void deleteById(Integer id) {
 
         int empCount = empMapper.countById(id);
-        if (empCount > 0) {
+        if (empCount > 1) {
             throw new DepDeleteException();
         }
         deptMapper.deleteById(id);

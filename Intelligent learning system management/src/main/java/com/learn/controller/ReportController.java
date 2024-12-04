@@ -37,4 +37,10 @@ public class ReportController {
         List<Map> genderList = reportService.getEmpGenderData();
         return Result.success(genderList);
     }
+
+//    @GetMapping("/studentCountData")
+//    public Result getStudentCountData(){
+//        log.info("Info of student are listed as below:{}");
+//
+//    }
 }
