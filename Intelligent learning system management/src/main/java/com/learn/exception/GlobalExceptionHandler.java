@@ -21,4 +21,9 @@ public class GlobalExceptionHandler {
         return Result.error(e.getMessage());
     }
 
+    @ExceptionHandler(DepDeleteException.class)
+    public Result handleDepDeleteException(DepDeleteException e) {
+        return Result.error(e.getMessage());
+    }
+
 }
