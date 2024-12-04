@@ -20,6 +20,12 @@
         </set>
         where id = #{id}
     </update>
+    <delete id="deleteByIds">
+        delete from student where id in
+            <foreach collection="ids" item="id" open="(" close=")" separator="'">
+                #{id}
+            </foreach>
+    </delete>
 
     <select id="list" resultType="com.learn.pojo.Student">
         select s.*, c.name clazzName

@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequestMapping("/students")
 @RestController
@@ -41,11 +43,11 @@ public class StudentController {
         studentService.update(student);
         return Result.success();
     }
-//
-//    @DeleteMapping("/{id}")
-//    public Result delete(@PathVariable Integer id){
-//        log.info("Delete clazz according to id:{}"+ id);
-//        clazzService.deleteById(id);
-//        return Result.success();
-//    }
+
+    @DeleteMapping("/{ids}")
+    public Result delete(@PathVariable List<Integer> ids){
+        log.info("Delete student according to ids:{}"+ ids);
+        studentService.deleteByIds(ids);
+        return Result.success();
+    }
 }
