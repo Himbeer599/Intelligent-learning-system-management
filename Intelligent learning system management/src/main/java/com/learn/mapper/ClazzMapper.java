@@ -24,4 +24,7 @@ public interface ClazzMapper {
 //    @Update("update clazz c set c.name= #{name}, c.room = #{room},c.begin_date = #{beginDate},c.end_date = #{endDate},c.master_id = #{masterId}, c.subject = #{subject}" +
 //            " where c.id=#{id}")
     void updateById(Clazz clazz);
+
+    @Delete("delete from clazz where id = #{id}")
+    void deleteById(Integer id);
 }

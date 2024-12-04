@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RequestMapping("/clazzs")
 @RestController
@@ -47,4 +49,10 @@ public class ClazzController {
         return Result.success();
     }
 
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id){
+        log.info("Delete clazz according to id:{}"+ id);
+        clazzService.deleteById(id);
+        return Result.success();
+    }
 }

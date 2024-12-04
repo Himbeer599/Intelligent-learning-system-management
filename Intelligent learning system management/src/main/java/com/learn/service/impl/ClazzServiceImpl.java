@@ -109,4 +109,9 @@ public class ClazzServiceImpl implements ClazzService {
         clazzMapper.updateById(clazz);
 //        list = Arrays.asList(clazz.getId());
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        clazzMapper.deleteById(id);
+    }
 }
