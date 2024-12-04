@@ -3,6 +3,7 @@ package com.learn.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.learn.mapper.ClazzMapper;
+import com.learn.mapper.EmpLogMapper;
 import com.learn.mapper.StudentMapper;
 import com.learn.pojo.*;
 import com.learn.service.ClazzService;
@@ -23,6 +24,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+    @Autowired
+    private EmpLogService empLogService;
 
     @Override
     public PageResult<Student> page(StudentQueryParam studentQueryParam) {
@@ -31,5 +34,17 @@ public class StudentServiceImpl implements StudentService {
         List<Student> studentList = studentMapper.list(studentQueryParam);
         Page<Student> p = (Page<Student>) studentList;
         return new PageResult<>(p.getTotal(),p.getResult());
+    }
+
+    @Override
+    public void creatStudent(Student student) {
+        try {
+            student.setCreateTime(LocalDateTime.now());
+            student.setUpdateTime(LocalDateTime.now());
+            studentMapper.add(student);
+        } finally {
+            EmpLog studentLog = new EmpLog(null, LocalDateTime.now(),"info of new added student is shown below:"+student);
+            empLogService.insertLog(studentLog);
+        }
     }
 }

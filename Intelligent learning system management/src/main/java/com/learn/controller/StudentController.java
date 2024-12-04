@@ -18,27 +18,16 @@ public class StudentController {
 
     @GetMapping
     public Result page (StudentQueryParam studentQueryParam) {
+        System.out.println("@@@@"+studentQueryParam);
         PageResult<Student> pageResult = studentService.page(studentQueryParam);
         return Result.success(pageResult);
     }
 
-//
-//    @Autowired
-//    private ClazzService clazzService;
-//
-//
-//    @GetMapping
-//    public Result page(ClazzQueryParam clazzQueryParam) {
-//        //PageResult<T>， T detemines the rows of PageResult. PageResult:{total:.., rows:[{Clazz},{Clazz}..]
-//        PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
-//        return Result.success(pageResult);
-//    }
-//
-//    @PostMapping
-//    public Result create(@RequestBody Clazz clazz) {
-//        clazzService.creatClazz(clazz);
-//        return Result.success();
-//    }
+    @PostMapping
+    public Result create(@RequestBody Student student) {
+        studentService.creatStudent(student);
+        return Result.success();
+    }
 //    /*PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
 //        System.out.println(pageResult.getTotal()); // 获取总记录数
 //        for (Clazz clazz : pageResult.getRows()) { // 遍历当前页的班级数据

@@ -4,7 +4,7 @@
 <mapper namespace="com.learn.mapper.StudentMapper">
 
     <select id="list" resultType="com.learn.pojo.Student">
-        select s.*, c.name
+        select s.*, c.name clazzName
         from student s
         left join clazz c
         on s.clazz_id = c.id

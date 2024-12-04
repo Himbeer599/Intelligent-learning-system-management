@@ -28,6 +28,6 @@ public interface ClazzMapper {
     @Delete("delete from clazz where id = #{id}")
     void deleteById(Integer id);
 
-    @Select("select * from clazz")
+    @Select("select c.name,c.id,c.create_time,c.update_time from clazz c")
     List<Clazz> getAll();
 }
