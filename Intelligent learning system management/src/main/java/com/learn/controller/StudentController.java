@@ -28,24 +28,19 @@ public class StudentController {
         studentService.creatStudent(student);
         return Result.success();
     }
-//    /*PageResult<Clazz> pageResult = clazzService.page(clazzQueryParam);
-//        System.out.println(pageResult.getTotal()); // 获取总记录数
-//        for (Clazz clazz : pageResult.getRows()) { // 遍历当前页的班级数据
-//                System.out.println(clazz.getName());   // 输出班级名称
-//    }*/
-//
-//    @GetMapping("/{id}")
-//    public Result getById(@PathVariable Integer id){
-//        log.info("Fetch clazz by id:"+ id);
-//        Clazz clazz = clazzService.getInfo(id);
-//        return Result.success(clazz);
-//    }
-//    @PutMapping
-//    public Result update(@RequestBody Clazz clazz){
-//        log.info("update clazz:{}"+ clazz);
-//        clazzService.update(clazz);
-//        return Result.success();
-//    }
+
+    @GetMapping("/{id}")
+    public Result getById(@PathVariable Integer id){
+        log.info("Fetch student by id:"+ id);
+        Student student = studentService.getInfo(id);
+        return Result.success(student);
+    }
+    @PutMapping
+    public Result update(@RequestBody Student student){
+        log.info("update student:{}"+ student);
+        studentService.update(student);
+        return Result.success();
+    }
 //
 //    @DeleteMapping("/{id}")
 //    public Result delete(@PathVariable Integer id){

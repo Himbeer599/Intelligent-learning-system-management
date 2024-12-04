@@ -47,4 +47,15 @@ public class StudentServiceImpl implements StudentService {
             empLogService.insertLog(studentLog);
         }
     }
+
+    @Override
+    public Student getInfo(Integer id) {
+        return studentMapper.getById(id);
+    }
+
+    @Override
+    public void update(Student student) {
+        student.setUpdateTime(LocalDateTime.now());
+        studentMapper.updateById(student);
+    }
 }
