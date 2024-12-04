@@ -114,11 +114,12 @@ public class ClazzServiceImpl implements ClazzService {
 //        list = Arrays.asList(clazz.getId());
     }
 
+    @Transactional(rollbackFor = {Exception.class})
     @Override
     public void deleteById(Integer id) {
         int studentCount = studentMapper.countByClazzId(id);
         System.out.println("studentCount:"+studentCount);
-        if (studentCount > 1) {
+        if (studentCount > 0) {
             throw new ClazzDeleteException();
         }
         clazzMapper.deleteById(id);

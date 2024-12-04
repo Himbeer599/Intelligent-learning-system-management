@@ -48,6 +48,6 @@ public interface EmpMapper {
     @Select("select e.name, e.id from emp e")
     List<Emp> getAll();
 
-    @Select("select count(*) from emp where id = #{id} ")
+    @Select("select count(*) from emp e where e.dept_id = #{id} ")
     int countById(@Param("id") Integer id);
 }

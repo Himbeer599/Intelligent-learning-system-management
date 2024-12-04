@@ -23,6 +23,6 @@ public interface StudentMapper {
 
     void deleteByIds(List<Integer> ids);
 
-    @Select("SELECT COUNT(*) FROM student WHERE id = #{id}")
+    @Select("SELECT COUNT(*) FROM student s WHERE s.clazz_id = #{id}")
     int countByClazzId(@Param("id") Integer id);
 }
