@@ -1,6 +1,8 @@
 package com.learn.service.impl;
 
 import com.learn.mapper.EmpMapper;
+import com.learn.mapper.StudentMapper;
+import com.learn.pojo.ClazzType;
 import com.learn.pojo.JobOption;
 import com.learn.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public JobOption getEmpJobData() {
@@ -26,5 +30,13 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public List<Map> getEmpGenderData() {
         return empMapper.countEmpGenderData();
+    }
+
+    @Override
+    public ClazzType getStuClazzData() {
+        List<Map<String,Object>> list =studentMapper.countStuClazzData();
+        List<Object> clazzList = list.stream().map(dataMap -> dataMap.get("clazzname")).toList();
+        List<Object> dataList = list.stream().map(dataMap -> dataMap.get("total")).toList();
+        return new ClazzType(clazzList,dataList);
     }
 }

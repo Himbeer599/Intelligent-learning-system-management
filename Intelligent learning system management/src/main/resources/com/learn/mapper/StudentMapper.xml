@@ -45,5 +45,24 @@
         </where>
         order by s.update_time desc
     </select>
+    <select id="countStuClazzData" resultType="java.util.Map">
+        select
+            (case s.clazz_id
+                when 6 then 'Java EE'
+                when 8 then 'Full Stack with AI'
+                when 11 then 'Data Science'
+                when 14 then 'UI/UX design'
+                when 15 then 'JavaSE'
+                when 17 then 'Web Development'
+                when 20 then 'Python 3.0'
+                when 22 then 'C++ embedded software'
+                when 23 then 'Data analytics'
+                else 'Unknown'
+            end) as clazzname,
+            count(*) as total
+            from student s
+                group by clazzname order by total
+
+    </select>
 
 </mapper>

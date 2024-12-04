@@ -1,4 +1,5 @@
 package com.learn.controller;
+import com.learn.pojo.ClazzType;
 import com.learn.service.ReportService;
 
 import com.learn.pojo.JobOption;
@@ -38,9 +39,10 @@ public class ReportController {
         return Result.success(genderList);
     }
 
-//    @GetMapping("/studentCountData")
-//    public Result getStudentCountData(){
-//        log.info("Info of student are listed as below:{}");
-//
-//    }
+    @GetMapping("/studentCountData")
+    public Result getStudentCountData(){
+        log.info("Info of student are listed as below:{}");
+        ClazzType clazzType = reportService.getStuClazzData();
+        return Result.success(clazzType);
+    }
 }

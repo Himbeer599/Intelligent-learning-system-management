@@ -5,6 +5,7 @@ import com.learn.pojo.StudentQueryParam;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
@@ -25,4 +26,7 @@ public interface StudentMapper {
 
     @Select("SELECT COUNT(*) FROM student s WHERE s.clazz_id = #{id}")
     int countByClazzId(@Param("id") Integer id);
+
+    @MapKey("clazzname")
+    List<Map<String, Object>> countStuClazzData();
 }
