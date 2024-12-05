@@ -7,6 +7,7 @@ import com.learn.mapper.EmpMapper;
 import com.learn.pojo.*;
 import com.learn.service.EmpLogService;
 import com.learn.service.EmpService;
+import com.learn.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,9 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 
@@ -104,4 +107,22 @@ public class EmpServiceImpl implements EmpService {
     public List<Emp> getAll() {
         return empMapper.getAll();
     }
+
+    @Override
+    public LoginInfo login(Emp emp){
+        Emp empLogin = empMapper.selectByUsernameAndPassword(emp);
+
+        if(empLogin != null){
+
+            Map<String,Object> dataMap = new HashMap<>();
+            dataMap.put("id", empLogin.getId());
+            dataMap.put("username", empLogin.getUsername());
+
+            String jwt = JwtUtils.generateJwt(dataMap);
+            LoginInfo loginInfo = new LoginInfo(empLogin.getId(), empLogin.getUsername(), empLogin.getName(), jwt);
+            return loginInfo;
+        }
+        return null;
+    }
+
 }

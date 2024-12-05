@@ -2,6 +2,7 @@ package com.learn.service;
 
 import com.learn.pojo.Emp;
 import com.learn.pojo.EmpQueryParam;
+import com.learn.pojo.LoginInfo;
 import com.learn.pojo.PageResult;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,4 +21,6 @@ public interface EmpService {
     void update(Emp emp);
 
     List<Emp> getAll();
+
+    LoginInfo login(Emp emp);
 }
