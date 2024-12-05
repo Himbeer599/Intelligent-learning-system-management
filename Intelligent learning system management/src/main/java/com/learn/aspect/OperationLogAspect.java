@@ -3,6 +3,7 @@ package com.learn.aspect;
 import com.learn.annotation.LogOperation;
 import com.learn.mapper.OperateLogMapper;
 import com.learn.pojo.OperateLog;
+import com.learn.utils.CurrentHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -47,6 +48,6 @@ public class OperationLogAspect {
     // 示例方法，获取当前用户ID
     private int getCurrentUserId() {
         // 这里应该根据实际情况从认证信息中获取当前登录用户的ID
-        return 1; // 示例返回值
+        return CurrentHolder.getCurrentId();
     }
 }

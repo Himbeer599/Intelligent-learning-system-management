@@ -1,6 +1,8 @@
 package com.learn.filter;
 
+import com.learn.utils.CurrentHolder;
 import com.learn.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -44,7 +46,9 @@ public class TokenFilter implements Filter {
 
         //5. 解析token，如果解析失败，返回错误结果（未登录）。
         try {
-            JwtUtils.parseJWT(jwt);
+            Claims claims = JwtUtils.parseJWT(jwt);
+            Integer empId = Integer.valueOf(claims.get("id").toString());
+            CurrentHolder.setCurrentId(empId);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("Failed to parse the token, returning error result.");
@@ -55,6 +59,8 @@ public class TokenFilter implements Filter {
         //6. 放行。
         log.info("Token is valid, pass through.");
         chain.doFilter(request, response);
+
+        CurrentHolder.remove();
     }
 
 }
