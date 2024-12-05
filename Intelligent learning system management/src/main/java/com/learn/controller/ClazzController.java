@@ -1,5 +1,6 @@
 package com.learn.controller;
 
+import com.learn.annotation.LogOperation;
 import com.learn.pojo.*;
 import com.learn.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,7 @@ public class ClazzController {
         return Result.success(pageResult);
     }
 
+    @LogOperation
     @PostMapping
     public Result create(@RequestBody Clazz clazz) {
         clazzService.creatClazz(clazz);
@@ -36,12 +38,14 @@ public class ClazzController {
                 System.out.println(clazz.getName());   // 输出班级名称
     }*/
 
+    @LogOperation
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
         log.info("Fetch clazz by id:"+ id);
         Clazz clazz = clazzService.getInfo(id);
         return Result.success(clazz);
     }
+    @LogOperation
     @PutMapping
     public Result update(@RequestBody Clazz clazz){
         log.info("update clazz:{}"+ clazz);
