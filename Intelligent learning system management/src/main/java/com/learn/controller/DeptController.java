@@ -27,7 +27,7 @@ public class DeptController {
     }
 
     @DeleteMapping
-    public Result delete(Integer id){
+    public Result delete(@RequestParam Integer id){
 //        System.out.println("Delete department according to id:"+ id);
         log.info("Delete department according to id:"+ id);
         deptService.deleteById(id);

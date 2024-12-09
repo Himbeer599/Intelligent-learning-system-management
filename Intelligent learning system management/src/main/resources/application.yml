@@ -7,6 +7,9 @@ spring:
       url: jdbc:mysql://localhost:3306/learn
       username: root
       password: 1234
+    jackson:
+      date-format: dd/MM/yyyy
+      time-zone: GMT+1
 
 mybatis:
   configuration:

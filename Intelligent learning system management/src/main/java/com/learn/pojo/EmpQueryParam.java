@@ -11,8 +11,8 @@ public class EmpQueryParam {
     private Integer pageSize = 10;
     private String name;
     private Integer gender;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate begin;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate end;
 }

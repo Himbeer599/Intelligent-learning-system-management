@@ -13,8 +13,8 @@ public interface StudentMapper {
     List<Student> list(StudentQueryParam studentQueryParam);
 
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("insert into student(name, no, gender, phone, id_card, is_college, address, degree, graduation_date, clazz_id, create_time, update_time) " +
-            "values (#{name},#{no},#{gender},#{phone},#{idCard},#{isCollege},#{address},#{degree},#{graduationDate},#{clazzId},#{createTime},#{updateTime})")
+    @Insert("insert into student(name, no, gender, phone, id_card, address, degree, graduation_date, clazz_id, create_time, update_time) " +
+            "values (#{name},#{no},#{gender},#{phone},#{idCard},#{address},#{degree},#{graduationDate},#{clazzId},#{createTime},#{updateTime})")
     void add(Student student);
 
     @Select("select s.* from student s where s.id = #{id} ")

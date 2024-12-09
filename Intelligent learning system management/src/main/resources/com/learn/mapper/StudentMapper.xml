@@ -23,7 +23,7 @@
 
     <delete id="deleteByIds">
         delete from student where id in
-            <foreach collection="ids" item="id" open="(" close=")" separator="'">
+            <foreach collection="ids" item="id" open="(" close=")" separator=",">
                 #{id}
             </foreach>
     </delete>
