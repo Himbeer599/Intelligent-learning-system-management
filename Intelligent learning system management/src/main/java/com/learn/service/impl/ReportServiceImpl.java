@@ -39,6 +39,7 @@ public class ReportServiceImpl implements ReportService {
         List<Map<String,Object>> list =studentMapper.countStuClazzData();
         List<Object> clazzList = list.stream().map(dataMap -> dataMap.get("clazzname")).toList();
         List<Object> dataList = list.stream().map(dataMap -> dataMap.get("total")).toList();
+        System.out.println("clazzList:" + clazzList);
         return new ClazzType(clazzList,dataList);
     }
 
