@@ -23,8 +23,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // 禁用 CSRF
                 .cors(config -> config.configurationSource(corsConfigurationSource)) // 使用自定义的 CORS 配置
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll() // 放行 /login 接口
-//                        .anyRequest().authenticated() // 其他接口需要认证
+                        .requestMatchers("**").permitAll() // 放行 /login 接口
+                        .anyRequest().authenticated() // 其他接口需要认证
                 );
         return http.build();
     }
@@ -32,7 +32,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173"); // 允许的前端域名
+        config.addAllowedOriginPattern("*");
         config.addAllowedMethod("*"); // 允许所有 HTTP 方法
         config.addAllowedHeader("*"); // 允许所有请求头
         config.setAllowCredentials(true); // 是否允许发送 Cookie
