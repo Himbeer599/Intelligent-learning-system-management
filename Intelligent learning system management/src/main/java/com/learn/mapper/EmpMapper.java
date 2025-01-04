@@ -40,8 +40,7 @@ public interface EmpMapper {
     void updatePassword(EmpPassword empPassword);
 
 
-    boolean checkPassword(@Param("id") Integer id, @Param("password") String password);
-
+    String getPassword(@Param("id") Integer id);
 
 
     void updateById(Emp emp);
@@ -57,6 +56,9 @@ public interface EmpMapper {
     @Select("select count(*) from emp e where e.dept_id = #{id} ")
     int countById(@Param("id") Integer id);
 
-    @Select("select * from emp where username = #{username} and password = #{password}")
-    Emp selectByUsernameandpassword(Emp emp);
+    @Select("select * from emp where username = #{username}")
+    Emp selectByUsername(String username);
+
+//    @Select("select * from emp")
+//    List<Emp> getAllEmp();
 }

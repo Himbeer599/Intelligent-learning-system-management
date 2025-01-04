@@ -8,8 +8,10 @@ import com.learn.pojo.*;
 import com.learn.service.EmpLogService;
 import com.learn.service.EmpService;
 import com.learn.utils.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -23,6 +25,7 @@ import java.util.Map;
 
 
 @Service
+@Slf4j
 
 public class EmpServiceImpl implements EmpService {
 
@@ -34,6 +37,7 @@ public class EmpServiceImpl implements EmpService {
     private EmpLogService empLogService;
     private List<Integer> list;
 
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     /**
     @Override
     public PageResult page(Integer page, Integer pageSize){
@@ -105,14 +109,21 @@ public class EmpServiceImpl implements EmpService {
         }
     }
 
+
     public boolean checkPassword(Integer id,String password) {
-        return empMapper.checkPassword(id, password);
+//        log.info("info of passw:{}",encoder.encode(password));
+        String passwordhashed = empMapper.getPassword(id);
+        boolean result = encoder.matches(password, passwordhashed);
+        return result;
     }
 
     @Override
     public void updatePassword(EmpPassword empPassword) {
 //        empPassword.setUpdateTime(LocalDateTime.now());
-            empMapper.updatePassword(empPassword);
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        empPassword.setNewpassword(encoder.encode(empPassword.getNewpassword()));
+//        System.out.println(passwordhashed);
+        empMapper.updatePassword(empPassword);
     }
 
     @Override
@@ -122,12 +133,11 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public LoginInfo login(Emp emp){
-        Emp empLogin = empMapper.selectByUsernameandpassword(emp);
-
+        Emp empLogin = empMapper.selectByUsername(emp.getUsername());
         if(empLogin != null){
-//            String hashedPassword = empLogin.getPassword();
+            String hashedPassword = empLogin.getPassword();
 
-//            if (BCrypt.checkpw(emp.getPassword(), hashedPassword)) {
+            if(encoder.matches(emp.getPassword(), hashedPassword)){
                 Map<String, Object> dataMap = new HashMap<>();
                 dataMap.put("id", empLogin.getId());
                 dataMap.put("username", empLogin.getUsername());
@@ -135,8 +145,24 @@ public class EmpServiceImpl implements EmpService {
                 String jwt = JwtUtils.generateJwt(dataMap);
                 LoginInfo loginInfo = new LoginInfo(empLogin.getId(), empLogin.getUsername(), empLogin.getName(), jwt, empLogin.getUserRole());
                 return loginInfo;
-//            }
+            }
         }
+//        List<Emp> allUsers = empMapper.getAllEmp();
+//
+//        for (Emp user : allUsers) {
+//            // 检查密码是否是明文（简单实现，假设没有哈希长度的密码为明文）
+//            if (user.getPassword().length() < 60) {
+//                // 对明文密码进行哈希
+//                log.info(user.getPassword());
+//                String hashedPassword = encoder.encode(user.getPassword());
+//                EmpPassword passwordStruct = new EmpPassword();
+//                passwordStruct.setId( user.getId());
+//                passwordStruct.setNewpassword(hashedPassword);
+//                // 更新用户密码
+//                empMapper.updatePassword(passwordStruct);
+//                log.info(hashedPassword);
+//            }
+//        }
         return null;
     }
 

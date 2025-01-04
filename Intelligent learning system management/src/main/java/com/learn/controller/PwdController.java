@@ -26,6 +26,7 @@ public class PwdController {
     public Result updatePassword(@RequestBody EmpPassword empPassword){
         log.info("new password info,{}"+ empPassword);
         Integer id = empPassword.getId();
+
         String password = empPassword.getOldpassword();
         if(empService.checkPassword(id,password)){
             empService.updatePassword(empPassword);

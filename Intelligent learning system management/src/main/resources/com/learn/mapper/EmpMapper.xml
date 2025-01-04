@@ -99,13 +99,10 @@
             count(*) as value
         from emp group by gender ;
     </select>
-    <select id="checkPassword" resultType="boolean">
-        SELECT CASE
-           WHEN COUNT(*) > 0 THEN TRUE
-           ELSE FALSE
-           END
-        FROM emp
-        WHERE id = #{id} AND password = #{password}
+    <select id="getPassword" resultType="String">
+        SELECT e.password
+        FROM emp as e
+        WHERE id = #{id}
     </select>
 
 
