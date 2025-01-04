@@ -9,6 +9,7 @@ import com.learn.service.EmpLogService;
 import com.learn.service.EmpService;
 import com.learn.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Service
 
@@ -103,26 +105,51 @@ public class EmpServiceImpl implements EmpService {
         }
     }
 
+    public boolean checkPassword(Integer id,String password) {
+        return empMapper.checkPassword(id, password);
+    }
+
     @Override
-    public List<Emp> getAll() {
+    public void updatePassword(EmpPassword empPassword) {
+//        empPassword.setUpdateTime(LocalDateTime.now());
+            empMapper.updatePassword(empPassword);
+    }
+
+    @Override
+    public List<EmpId> getAll() {
         return empMapper.getAll();
     }
 
     @Override
     public LoginInfo login(Emp emp){
-        Emp empLogin = empMapper.selectByUsernameAndPassword(emp);
+        Emp empLogin = empMapper.selectByUsernameandpassword(emp);
 
         if(empLogin != null){
+//            String hashedPassword = empLogin.getPassword();
 
-            Map<String,Object> dataMap = new HashMap<>();
-            dataMap.put("id", empLogin.getId());
-            dataMap.put("username", empLogin.getUsername());
+//            if (BCrypt.checkpw(emp.getPassword(), hashedPassword)) {
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("id", empLogin.getId());
+                dataMap.put("username", empLogin.getUsername());
 
-            String jwt = JwtUtils.generateJwt(dataMap);
-            LoginInfo loginInfo = new LoginInfo(empLogin.getId(), empLogin.getUsername(), empLogin.getName(), jwt);
-            return loginInfo;
+                String jwt = JwtUtils.generateJwt(dataMap);
+                LoginInfo loginInfo = new LoginInfo(empLogin.getId(), empLogin.getUsername(), empLogin.getName(), jwt, empLogin.getUserRole());
+                return loginInfo;
+//            }
         }
         return null;
     }
+
+//    @Override
+//    public RegisterInfo register(Emp emp){
+//        Emp empRegister = empMapper.selectByUsernameAndPassword(emp);
+//
+//        if(empRegister != null){
+//            return null;
+//        }
+//        empMapper.insert(emp);
+//        RegisterInfo registerInfo = new RegisterInfo(empRegister.getId(),empRegister.getUsername(),empRegister.getName());
+//        return registerInfo;
+//    }
 
 }

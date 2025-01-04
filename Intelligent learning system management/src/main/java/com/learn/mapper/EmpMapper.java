@@ -57,6 +57,6 @@ public interface EmpMapper {
     @Select("select count(*) from emp e where e.dept_id = #{id} ")
     int countById(@Param("id") Integer id);
 
-    @Select("select * from emp where username = #{username}")
-    Emp selectByUsername(String username);
+    @Select("select * from emp where username = #{username} and password = #{password}")
+    Emp selectByUsernameandpassword(Emp emp);
 }

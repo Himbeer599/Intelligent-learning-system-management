@@ -26,7 +26,7 @@
                 c.name like concat('%',#{name},'%')
             </if>
             <if test="begin != null and end != null">
-                and c.entry_date between #{begin} and #{end}
+                and c.begin_date between #{begin} and #{end}
             </if>
         </where>
         order by update_time desc
