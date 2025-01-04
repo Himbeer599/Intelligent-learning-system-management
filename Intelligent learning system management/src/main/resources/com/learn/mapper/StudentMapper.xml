@@ -41,7 +41,7 @@
                 and s.degree = #{degree}
             </if>
             <if test="classId != null">
-                and s.class_id = #{classId}
+                and s.clazz_id = #{classId}
             </if>
         </where>
         order by s.update_time desc

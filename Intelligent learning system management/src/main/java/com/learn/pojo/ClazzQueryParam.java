@@ -10,8 +10,8 @@ public class ClazzQueryParam {
     private Integer page = 1;
     private Integer pageSize = 10;
     private String name;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate begin;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate end;
 }

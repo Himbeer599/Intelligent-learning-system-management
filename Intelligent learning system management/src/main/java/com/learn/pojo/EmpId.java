@@ -4,14 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class LoginInfo {
+public class EmpId {
     private Integer id; //ID,主键
-    private String username; //用户名
+
     private String name; //姓名
-    private String token;
-    private Integer userRole;
 
 }

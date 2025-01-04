@@ -1,9 +1,7 @@
 package com.learn.mapper;
 
 
-import com.learn.pojo.Dept;
-import com.learn.pojo.Emp;
-import com.learn.pojo.EmpQueryParam;
+import com.learn.pojo.*;
 import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
@@ -38,6 +36,14 @@ public interface EmpMapper {
     @Update("update emp and emp_expr set name = #{name}, update_time = #{updateTime} where id = #{id}")
     void update(Emp emp);
 
+    @Update("update emp set password = #{newpassword} where id = #{id}")
+    void updatePassword(EmpPassword empPassword);
+
+
+    boolean checkPassword(@Param("id") Integer id, @Param("password") String password);
+
+
+
     void updateById(Emp emp);
 
     @MapKey("pos")
@@ -46,11 +52,11 @@ public interface EmpMapper {
     List<Map> countEmpGenderData();
 
     @Select("select e.name, e.id from emp e")
-    List<Emp> getAll();
+    List<EmpId> getAll();
 
     @Select("select count(*) from emp e where e.dept_id = #{id} ")
     int countById(@Param("id") Integer id);
 
-    @Select("select * from emp where username = #{username} and password = #{password}")
-    Emp selectByUsernameAndPassword(Emp emp);
+    @Select("select * from emp where username = #{username}")
+    Emp selectByUsername(String username);
 }

@@ -18,7 +18,7 @@ import java.io.IOException;
 import org.apache.http.HttpStatus;
 @Slf4j
 @WebFilter(urlPatterns = "/*")
-public class TokenFilter implements Filter {
+class TokenFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {

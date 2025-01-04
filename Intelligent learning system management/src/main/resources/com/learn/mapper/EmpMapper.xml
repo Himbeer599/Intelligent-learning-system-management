@@ -61,6 +61,7 @@
         where e.id = #{id}
     </select>
 
+
 <!--    dynamic update-->
     <update id="updateById">
         update emp
@@ -82,11 +83,11 @@
 
     <select id="countEmpJobData" resultType="java.util.Map">
         select
-            (case job when 1 then 'Student Affairs'
-                      when 2 then 'Academics'
-                      when 3 then 'Consultation'
-                      when 4 then 'Employment Affairs'
-                      when 5 then 'Human Resources'
+            (case job when 1 then 'Course Manager'
+                      when 2 then 'Lecturer'
+                      when 3 then 'Student Affairs Manager'
+                      when 4 then 'Research Supervisor'
+                      when 5 then 'Consultant'
                       else 'Other' end)  pos,
             count(*) total
         from emp group by job
@@ -98,4 +99,14 @@
             count(*) as value
         from emp group by gender ;
     </select>
+    <select id="checkPassword" resultType="boolean">
+        SELECT CASE
+           WHEN COUNT(*) > 0 THEN TRUE
+           ELSE FALSE
+           END
+        FROM emp
+        WHERE id = #{id} AND password = #{password}
+    </select>
+
+
 </mapper>

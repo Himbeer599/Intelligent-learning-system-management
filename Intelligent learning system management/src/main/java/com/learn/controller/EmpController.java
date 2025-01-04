@@ -63,7 +63,7 @@ public class EmpController {
     @GetMapping("/list")
     public Result getAllEmp(){
         log.info("Fetch all employees");
-        List<Emp> empList = empService.getAll();
+        List<EmpId> empList = empService.getAll();
         return Result.success(empList);
     }
 
